@@ -1,27 +1,11 @@
 import pygame
 import sys
 
+from vars import *
+from snake import draw_snake_game, handle_snake_game
+
 # Initialize Pygame
 pygame.init()
-
-# Screen dimensions
-WIDTH, HEIGHT = 800, 600
-screen = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("Infinite Fun")
-
-# Define colors
-WHITE = (255, 255, 255)
-BLACK = (0, 0, 0)
-
-# Font
-font = pygame.font.SysFont('Arial', 30)
-
-# Game speed
-game_speed = 1.0
-
-# Game states
-#MAIN_MENU, SETTINGS, START_GAME, EXIT_GAME = 0, 1, 2, 3
-MAIN_MENU, SETTINGS, START_GAME, EXIT_GAME = 'MAIN_MENU', 'SETTINGS', 'START_GAME', 'EXIT_GAME' 
 
 # Changed to from abitrary int's to strings so that when we use the switch statement, 
 # the code is more readable and easier to understand.
@@ -141,7 +125,7 @@ def handle_game_select_screen(event):
             pass
         elif event.key == pygame.K_2:
             # Start snake game
-            pass
+            game_state = SNAKE_GAME
         elif event.key == pygame.K_3:
             # Start cookie clicker
             pass
@@ -173,7 +157,7 @@ def handle_game_select_screen(event):
                     pass
                 case 1:
                     # Start snake game
-                    pass
+                    game_state = SNAKE_GAME
                 case 2:
                     # Start cookie clicker
                     pass
@@ -261,6 +245,10 @@ while running:
             case 'EXIT_GAME':
                 pygame.quit()
                 sys.exit()
+            case 'SHOOTER_GAME':
+                pass
+            case 'SNAKE_GAME':
+                handle_snake_game(event)
         # New code
 
         # Old code
@@ -275,11 +263,16 @@ while running:
             sys.exit()'''
         # Old code
 
-    if game_state == MAIN_MENU:
-        draw_main_menu()
-    elif game_state == SETTINGS:
-        draw_settings_menu()
-    elif game_state == START_GAME:
-        draw_game_select_screen()
+    match game_state:
+        case 'MAIN_MENU':
+            draw_main_menu()
+        case 'SETTINGS':
+            draw_settings_menu()
+        case 'START_GAME':
+            draw_game_select_screen()
+        case 'SHOOTER_GAME':
+            pass
+        case 'SNAKE_GAME':
+            draw_snake_game()
 
 pygame.quit()
